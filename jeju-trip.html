@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🍊 濟州島 5天4夜</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8612A;
+    --orange-light: #F5A06A;
+    --orange-pale: #FFF0E8;
+    --cream: #FBF7F2;
+    --stone: #8C7B6E;
+    --dark: #2A1F18;
+    --teal: #4A9B8E;
+    --teal-light: #E8F5F3;
+    --pink: #E8A0A0;
+    --yellow: #F0C060;
+    --nav-h: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    padding-bottom: var(--nav-h);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(160deg, #E8612A 0%, #C94B1A 40%, #8B3A22 100%);
+    padding: 48px 24px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🍊';
+    position: absolute;
+    font-size: 120px;
+    right: -20px;
+    top: -10px;
+    opacity: 0.15;
+    filter: blur(2px);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 24px;
+    background: var(--cream);
+    border-radius: 24px 24px 0 0;
+  }
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+  }
+  .hero-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TABS ── */
+  .tab-section { display: none; }
+  .tab-section.active { display: block; }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: #fff;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.08);
+    z-index: 100;
+  }
+  .nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 6px 0;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .nav-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 2px;
+    background: var(--orange);
+    border-radius: 0 0 4px 4px;
+  }
+  .nav-btn .nav-icon { font-size: 20px; }
+  .nav-btn .nav-label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--stone);
+    font-weight: 500;
+  }
+  .nav-btn.active .nav-label { color: var(--orange); }
+
+  /* ── CONTENT WRAPPER ── */
+  .content { padding: 20px 16px 12px; }
+
+  /* ── DAY SELECTOR ── */
+  .day-scroller {
+    overflow-x: auto;
+    display: flex;
+    gap: 10px;
+    padding: 16px 16px 0;
+    scrollbar-width: none;
+  }
+  .day-scroller::-webkit-scrollbar { display: none; }
+  .day-chip {
+    flex-shrink: 0;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    min-width: 72px;
+  }
+  .day-chip.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+  }
+  .day-chip .dc-label { font-size: 10px; color: var(--stone); letter-spacing: 1px; }
+  .day-chip.active .dc-label { color: rgba(255,255,255,0.8); }
+  .day-chip .dc-num { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 600; line-height: 1; }
+  .day-chip .dc-date { font-size: 10px; color: var(--stone); margin-top: 2px; }
+  .day-chip.active .dc-date { color: rgba(255,255,255,0.8); }
+
+  /* ── DAY CONTENT ── */
+  .day-content { display: none; padding: 16px; }
+  .day-content.active { display: block; }
+
+  .day-header {
+    background: linear-gradient(135deg, var(--orange-pale), #fff);
+    border: 1px solid rgba(232,97,42,0.15);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .day-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .day-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .day-badge {
+    background: var(--orange);
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .day-outfit {
+    font-size: 12px;
+    color: var(--stone);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 8px; bottom: 8px;
+    width: 1.5px;
+    background: linear-gradient(to bottom, var(--orange-light), transparent);
+  }
+
+  .tl-block {
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .tl-block::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 18px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange-light);
+    border: 2px solid var(--cream);
+  }
+  .tl-block.highlight::before { background: var(--orange); }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .card-time {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--orange);
+    letter-spacing: 0.5px;
+  }
+  .card-type {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .type-meal { background: #FFF0E8; color: var(--orange); }
+  .type-snack { background: #FFF8E8; color: #C09020; }
+  .type-spot { background: #E8F5F3; color: var(--teal); }
+  .type-stay { background: #F0E8FF; color: #7060C0; }
+  .type-transport { background: #F0F0F0; color: #606060; }
+  .type-activity { background: #FFE8F0; color: #C04080; }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .card-name-kr { font-size: 11px; color: var(--stone); margin-bottom: 6px; }
+  .card-desc { font-size: 12px; color: var(--stone); line-height: 1.6; margin-bottom: 10px; }
+
+  .card-options {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  .card-options-title { font-size: 10px; letter-spacing: 1px; color: var(--stone); margin-bottom: 6px; }
+  .option-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+  .option-num {
+    background: var(--orange);
+    color: #fff;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── MAP BUTTON ── */
+  .map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: opacity 0.2s;
+  }
+  .map-btn:active { opacity: 0.8; }
+  .map-btn.teal { background: var(--teal); }
+  .map-btn.light {
+    background: var(--orange-pale);
+    color: var(--orange);
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+  }
+
+  /* ── TRANSPORT TAB ── */
+  .transport-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .transport-route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .route-point {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--dark);
+  }
+  .route-arrow {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--stone);
+    font-size: 11px;
+  }
+  .route-line {
+    flex: 1;
+    height: 1px;
+    background: var(--stone);
+    opacity: 0.3;
+  }
+  .transport-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .meta-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--cream);
+    color: var(--stone);
+  }
+  .meta-chip.orange { background: var(--orange-pale); color: var(--orange); }
+  .transport-note { font-size: 12px; color: var(--stone); line-height: 1.6; }
+
+  /* ── STAY TAB ── */
+  .stay-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .stay-banner {
+    background: linear-gradient(135deg, #4A9B8E, #2D7068);
+    padding: 24px 20px 20px;
+    color: #fff;
+  }
+  .stay-nights {
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 6px;
+  }
+  .stay-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 4px;
+  }
+  .stay-type { font-size: 12px; opacity: 0.8; }
+  .stay-body { padding: 16px; }
+  .stay-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .stay-row:last-child { border-bottom: none; }
+  .stay-row-label { color: var(--stone); font-size: 11px; }
+  .stay-row-value { font-weight: 500; color: var(--dark); }
+  .stay-confirmed {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-top: 12px;
+  }
+
+  /* ── PACKING TAB ── */
+  .pack-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .pack-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pack-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    cursor: pointer;
+  }
+  .pack-item:last-child { border-bottom: none; }
+  .pack-check {
+    width: 20px; height: 20px;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .pack-item.checked .pack-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .pack-item.checked .pack-check::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+  .pack-item.checked .pack-text { text-decoration: line-through; color: var(--stone); }
+  .pack-text { font-size: 13px; color: var(--dark); }
+  .pack-note { font-size: 11px; color: var(--stone); margin-left: auto; }
+
+  /* ── BUDGET TAB ── */
+  .budget-total {
+    background: linear-gradient(135deg, var(--orange), #C94B1A);
+    border-radius: 20px;
+    padding: 24px;
+    color: #fff;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .budget-total-label { font-size: 11px; letter-spacing: 2px; opacity: 0.8; margin-bottom: 6px; }
+  .budget-total-num { font-family: 'Noto Serif TC', serif; font-size: 32px; font-weight: 300; }
+  .budget-total-sub { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+  .budget-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .budget-day-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .budget-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 12px;
+  }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-row-label { color: var(--stone); }
+  .budget-row-val { font-weight: 500; color: var(--dark); }
+  .budget-row.total-row { margin-top: 4px; padding-top: 10px; border-top: 1.5px solid rgba(0,0,0,0.08); border-bottom: none; }
+  .budget-row.total-row .budget-row-label { font-weight: 600; color: var(--dark); }
+  .budget-row.total-row .budget-row-val { color: var(--orange); font-weight: 700; font-size: 14px; }
+
+  /* ── INFO TAB ── */
+  .info-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .info-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-row {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 12px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row-label { color: var(--stone); width: 70px; flex-shrink: 0; }
+  .info-row-val { color: var(--dark); flex: 1; line-height: 1.5; }
+  .alert-box {
+    background: #FFF8E8;
+    border: 1px solid #F0C060;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: #806020;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .alert-box strong { color: #604010; }
+
+  /* ── FLIGHT CARD ── */
+  .flight-card {
+    background: linear-gradient(135deg, #2A1F18, #4A3528);
+    border-radius: 20px;
+    padding: 20px;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .flight-card::after {
+    content: '✈';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    opacity: 0.08;
+  }
+  .flight-label { font-size: 10px; letter-spacing: 2px; opacity: 0.6; margin-bottom: 10px; }
+  .flight-route {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .flight-city { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 300; }
+  .flight-time { font-size: 11px; opacity: 0.7; }
+  .flight-arrow { opacity: 0.4; font-size: 18px; }
+  .flight-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 6px;
+  }
+
+  /* scrollable containers */
+  .scroll-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .scroll-x::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">2025 May — June</div>
+  <div class="hero-title">濟州島<br>5天4夜 ✈️</div>
+  <div class="hero-sub">5/29（四）— 6/2（一）｜2人｜自駕</div>
+  <div class="hero-pills">
+    <span class="pill">真航空 LJ764/763</span>
+    <span class="pill">樂天租車</span>
+    <span class="pill">牛島⛵</span>
+    <span class="pill">汗蒸幕×2</span>
+  </div>
+</div>
+
+<!-- TAB: 行程 -->
+<div class="tab-section active" id="tab-itinerary">
+
+  <!-- Day Selector -->
+  <div class="day-scroller">
+    <div class="day-chip active" onclick="switchDay(1, this)">
+      <div class="dc-label">DAY</div>
+      <div class="dc-num">1</div>
+      <div class="dc-date">5/29</div>
+    </div>
+    <div class="day-chip" onclick="switchDay(2, this)">
+      <div class="dc-label">DAY</div>
+      <div class="dc-num">2</div>
+      <div class="dc-date">5/30</div>
+    </div>
+    <div class="day-chip" onclick="switchDay(3, this)">
+      <div class="dc-label">DAY</div>
+      <div class="dc-num">3</div>
+      <div class="dc-date">5/31</div>
+    </div>
+    <div class="day-chip" onclick="switchDay(4, this)">
+      <div class="dc-label">DAY</div>
+      <div class="dc-num">4</div>
+      <div class="dc-date">6/1</div>
+    </div>
+    <div class="day-chip" onclick="switchDay(5, this)">
+      <div class="dc-label">DAY</div>
+      <div class="dc-num">5</div>
+      <div class="dc-date">6/2</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 1 ═══════════════ -->
+  <div class="day-content active" id="day-1">
+    <div class="day-header">
+      <div class="day-header-top">
+        <div class="day-title">落地橘子島🍊<br>汗蒸幕暖身</div>
+        <div class="day-badge">5/29 四</div>
+      </div>
+      <div class="day-outfit">👗 舒適寬鬆｜薄外套｜換洗衣物（汗蒸幕）</div>
+    </div>
+
+    <div class="section-label">清晨・抵達</div>
+    <div class="timeline">
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">06:10</span>
+            <span class="card-type type-transport">✈️ 抵達</span>
+          </div>
+          <div class="card-name">濟州國際機場 入境</div>
+          <div class="card-desc">入境 → 提領行李 → 步行至樂天租車取車<br>⚠️ 行李可放車廂，之後再整理</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/KvQLJr3tmxQkrYi16" target="_blank">📍 濟州機場 導航</a>
+        </div>
+      </div>
+
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">07:00</span>
+            <span class="card-type type-meal">☀️ 早餐</span>
+          </div>
+          <div class="card-name">早餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span>東門傳統市場隨逛隨吃（韓式早食）</div>
+            <div class="option-row"><span class="option-num">2</span>London Bagel Museum 倫敦貝果（需排隊）</div>
+          </div>
+          <a class="map-btn light" href="https://maps.app.goo.gl/Yf6YnvzPJHCc1E3n6" target="_blank">📍 東門市場 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">上午・汗蒸幕</div>
+    <div class="timeline">
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">08:30</span>
+            <span class="card-type type-activity">🛁 汗蒸幕</span>
+          </div>
+          <div class="card-name">汗蒸幕（擇一）</div>
+          <div class="card-name-kr">건강을 위한 시간 ☁️</div>
+          <div class="card-options">
+            <div class="card-options-title">推薦選手</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>龍頭岩海水汗蒸幕</strong>（推薦）<br>海景、海水、機場旁 ★ 約 KRW 12,000/人</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>濟州島君悅酒店汗蒸幕</strong><br>精緻設備、Noyeon-ro 12, 6F ★ 費用較高</div></div>
+          </div>
+          <a class="map-btn" href="https://maps.google.com/?cid=11029948969159443874" target="_blank">📍 龍頭岩汗蒸幕 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">中午・市區</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">12:00</span>
+            <span class="card-type type-meal">🍽️ 午餐</span>
+          </div>
+          <div class="card-name">東門市場午餐＋市區逛逛</div>
+          <div class="card-desc">東門市場美食、七星路商圈散步、偶來市場晃晃</div>
+          <a class="map-btn light" href="https://maps.google.com/?cid=4366899934413159669" target="_blank">📍 東門傳統市場 導航</a>
+        </div>
+      </div>
+
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">14:00</span>
+            <span class="card-type type-spot">☕ 咖啡休息</span>
+          </div>
+          <div class="card-name">七星路咖啡廳休息時間</div>
+          <div class="card-desc">市區咖啡廳補充能量，準備出發往東部</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">下午・前往東部民宿</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">15:00</span>
+            <span class="card-type type-transport">🚗 出發</span>
+          </div>
+          <div class="card-name">市區 → 閑德海灘 → 民宿</div>
+          <div class="card-desc">途中停靠閑德海灘（約1hr），清澈碧海，拍個照再出發</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=17353030637379434608" target="_blank">📍 閑德海灘 導航</a>
+        </div>
+      </div>
+
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">17:00</span>
+            <span class="card-type type-stay">🏠 入住</span>
+          </div>
+          <div class="card-name">Airbnb 民宿 Check-in</div>
+          <div class="card-name-kr">38 Sanghado-gil, Gujwa-eup・구좌읍</div>
+          <div class="card-desc">入住時間：下午4點｜評分 ★4.95<br>1臥室・1床・獨立浴室</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/fzhCyjLGL6SbnAnn7" target="_blank">📍 民宿位置 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">晚餐</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">18:30</span>
+            <span class="card-type type-meal">🌙 晚餐</span>
+          </div>
+          <div class="card-name">晚餐選項（民宿附近）</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>東北海女海産物直販場</strong><br>海景海鮮，就在民宿旁！🦀</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>月高家</strong><br>脆友推薦，東北部在地美食</div></div>
+            <div class="option-row"><span class="option-num">3</span><div><strong>Kogijang 烤黑豬肉</strong><br>特色醬料烤黑豬 🐷</div></div>
+          </div>
+          <a class="map-btn" href="https://maps.google.com/?cid=7386554812438757190" target="_blank">📍 東北海女海産物 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">21:00</span>
+            <span class="card-type type-snack">🌙 宵夜</span>
+          </div>
+          <div class="card-name">便利商店宵夜</div>
+          <div class="card-desc">GS25 或 CU｜韓式泡麵、冰品、零食帶回民宿</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 2 ═══════════════ -->
+  <div class="day-content" id="day-2">
+    <div class="day-header">
+      <div class="day-header-top">
+        <div class="day-title">牛島一日遊🐄🏝️<br>珊瑚礁＋花生冰淇淋</div>
+        <div class="day-badge">5/30 五</div>
+      </div>
+      <div class="day-outfit">👗 防曬必備！輕便涼鞋、泳衣備用｜⚠️ 帶護照！</div>
+    </div>
+
+    <div class="section-label">清晨・出發城山</div>
+    <div class="timeline">
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">07:00</span>
+            <span class="card-type type-transport">🚗 出發</span>
+          </div>
+          <div class="card-name">民宿 → 城山浦港（約15分）</div>
+          <div class="card-desc">⚠️ 搭船需要護照，請確認帶好！</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=14567889934598672804" target="_blank">📍 城山浦港碼頭 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">07:30</span>
+            <span class="card-type type-transport">⛴️ 渡輪</span>
+          </div>
+          <div class="card-name">搭渡輪前往牛島</div>
+          <div class="card-desc">來回費用約 KRW 12,000/人｜船程約15分鐘<br>到島上租電動機車環島 🛵 約 KRW 15,000-20,000/台</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">上午・牛島環島</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">08:30</span>
+            <span class="card-type type-meal">☀️ 早餐</span>
+          </div>
+          <div class="card-name">牛島早餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>hohohaha 漢堡</strong> 🍔<br>牛島必吃！評價超高</div></div>
+            <div class="option-row"><span class="option-num">2</span><div>島上碼頭小攤早食</div></div>
+          </div>
+          <a class="map-btn light" href="https://maps.app.goo.gl/TVYHviRfKMEfDdnH6" target="_blank">📍 hohohaha漢堡 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">09:30</span>
+            <span class="card-type type-snack">🥜 點心</span>
+          </div>
+          <div class="card-name">Udo Sand 花生冰淇淋</div>
+          <div class="card-desc">牛島必吃！花生冰淇淋＋花生餅乾<br>約 KRW 5,000/人</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/TVYHviRfKMEfDdnH6" target="_blank">📍 Udo Sand 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">10:00</span>
+            <span class="card-type type-spot">🏝️ 景點</span>
+          </div>
+          <div class="card-name">牛島環島＋海灘打卡</div>
+          <div class="card-desc">西濱白沙灘・홍조단괴해변（珊瑚礁海灘）<br>🐳 牛島i 鯨魚掛布紀念品店購物</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/TVYHviRfKMEfDdnH6" target="_blank">📍 牛島環島地圖 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">中午・午餐</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">12:00</span>
+            <span class="card-type type-meal">🍱 午餐</span>
+          </div>
+          <div class="card-name">牛島午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>On-Off 牛島豬排</strong> 🥩<br>在地人氣餐廳</div></div>
+            <div class="option-row"><span class="option-num">2</span><div>島上海鮮小店</div></div>
+          </div>
+          <a class="map-btn light" href="https://maps.app.goo.gl/TVYHviRfKMEfDdnH6" target="_blank">📍 On-Off 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">下午・城山</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">14:00</span>
+            <span class="card-type type-transport">⛴️ 回程</span>
+          </div>
+          <div class="card-name">搭渡輪回城山浦港</div>
+        </div>
+      </div>
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">14:30</span>
+            <span class="card-type type-spot">🌋 景點</span>
+          </div>
+          <div class="card-name">城山日出峰</div>
+          <div class="card-name-kr">성산일출봉 · UNESCO世界遺產</div>
+          <div class="card-desc">健行約30-40分鐘，頂部有360°火山口景觀<br>入場費 KRW 5,000/人・每日14:00有海女表演</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=6147749964369081931" target="_blank">📍 城山日出峰 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">晚餐</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">17:30</span>
+            <span class="card-type type-meal">🌙 晚餐</span>
+          </div>
+          <div class="card-name">晚餐選項（東部回程途中）</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>東北海女海産物直販場</strong><br>新鮮海鮮・海景絕佳 🦀</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>月汀里鐵板排骨店</strong><br>冷麵＋排骨，就在民宿附近</div></div>
+          </div>
+          <a class="map-btn" href="https://maps.google.com/?cid=7386554812438757190" target="_blank">📍 東北海女海産物 導航</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 3 ═══════════════ -->
+  <div class="day-content" id="day-3">
+    <div class="day-header">
+      <div class="day-header-top">
+        <div class="day-title">南部探索🍵<br>抹茶・藝術・Hello Kitty</div>
+        <div class="day-badge">5/31 六</div>
+      </div>
+      <div class="day-outfit">👗 清爽穿搭・適合打卡拍照｜帶薄外套（館內冷氣強）</div>
+    </div>
+
+    <div class="section-label">早上・退房出發</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">09:00</span>
+            <span class="card-type type-stay">🏠 退房</span>
+          </div>
+          <div class="card-name">民宿退房・行李放車上</div>
+          <div class="card-desc">出發前往南部（車程約1.5小時）</div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">10:00</span>
+            <span class="card-type type-meal">☀️ 早午餐</span>
+          </div>
+          <div class="card-name">途中早午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>大元家 鮑魚粥</strong><br>濟州市區鮑魚粥名店 ★★★</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>濟州따이 鮑魚粥</strong><br>另一家人氣鮑魚粥</div></div>
+          </div>
+          <a class="map-btn light" href="https://maps.google.com/?cid=121764561601413034" target="_blank">📍 大元家 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">上午・南部景點</div>
+    <div class="timeline">
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">11:00</span>
+            <span class="card-type type-spot">🍵 景點</span>
+          </div>
+          <div class="card-name">Osulloc 茶博物館</div>
+          <div class="card-name-kr">오설록 티뮤지엄 · 南部安德面</div>
+          <div class="card-desc">韓國抹茶聖地！免費入場，館內消費另計<br>必點：抹茶冰淇淋、抹茶拿鐵、抹茶草莓蛋糕</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=13305624007371115217" target="_blank">📍 Osulloc 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">13:00</span>
+            <span class="card-type type-spot">🎨 景點</span>
+          </div>
+          <div class="card-name">本態博物館</div>
+          <div class="card-name-kr">본태박물관 · 安藤忠雄設計</div>
+          <div class="card-desc">世界知名建築師安藤忠雄設計，韓國工藝＋當代藝術<br>入場費約 KRW 20,000-30,000/人</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=9590096711621992130" target="_blank">📍 本態博物館 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">15:00</span>
+            <span class="card-type type-spot">🎀 景點</span>
+          </div>
+          <div class="card-name">Hello Kitty Island</div>
+          <div class="card-name-kr">헬로키티아일랜드 · 南部安德面</div>
+          <div class="card-desc">濟州島爺爺凱蒂！多主題展區＋拍照打卡<br>入場費約 KRW 15,000/人｜開放至 17:00</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=7530122129578212091" target="_blank">📍 Hello Kitty Island 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">傍晚・西南協才（晚餐）</div>
+    <div class="timeline">
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">17:30</span>
+            <span class="card-type type-meal">🌿 晚餐</span>
+          </div>
+          <div class="card-name">Baerong Garden 花園餐廳</div>
+          <div class="card-name-kr">배롱가든 · 協才海灘附近</div>
+          <div class="card-desc">花園小屋式餐廳，老闆娘說英文！<br>招牌：黑豬蛋地獄（Shakshuka式）、螃蟹燉飯<br>⚠️ 週四公休，5/31（六）✅ 開放</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=5921298517764325303" target="_blank">📍 Baerong Garden 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">19:30</span>
+            <span class="card-type type-snack">☕ 點心</span>
+          </div>
+          <div class="card-name">Beryl 海邊咖啡廳</div>
+          <div class="card-name-kr">협재 해변 · 步行5分鐘</div>
+          <div class="card-desc">協才海灘海景咖啡廳・可下水玩🌊<br>帶泳衣的話今天下水！</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=11342251082146011945" target="_blank">📍 Beryl 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">晚上・市區飯店</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">21:00</span>
+            <span class="card-type type-stay">🏨 入住</span>
+          </div>
+          <div class="card-name">濟州觀景台飯店 Check-in</div>
+          <div class="card-desc">入住時間：下午4點起（可能晚到，提前告知飯店）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 4 ═══════════════ -->
+  <div class="day-content" id="day-4">
+    <div class="day-header">
+      <div class="day-header-top">
+        <div class="day-title">市區購物🛍️<br>涯月夕陽＋似顏繪</div>
+        <div class="day-badge">6/1 日</div>
+      </div>
+      <div class="day-outfit">👗 舒適球鞋（走最多路）｜帽子防曬｜拍照穿搭</div>
+    </div>
+
+    <div class="section-label">早上・市區</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">09:00</span>
+            <span class="card-type type-meal">☀️ 早午餐</span>
+          </div>
+          <div class="card-name">早午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>London Bagel Museum Jeju</strong> 🥯<br>排隊名物！多種口味貝果</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>Audrant Bakery</strong> 🧄🍞<br>大蒜奶油麵包・市區附近</div></div>
+          </div>
+          <a class="map-btn light" href="https://maps.google.com/?cid=ChIJOxygt3AZDTURQxzvcXjVIpU" target="_blank">📍 London Bagel Museum 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">10:00</span>
+            <span class="card-type type-spot">🛍️ 購物</span>
+          </div>
+          <div class="card-name">市區購物衝刺</div>
+          <div class="card-desc">集中在七星路一帶，一次逛完：</div>
+          <div class="card-options">
+            <div class="card-options-title">購物清單</div>
+            <div class="option-row"><span class="option-num">🪨</span>ODUJEJ 石頭蠟筆體驗</div>
+            <div class="option-row"><span class="option-num">🐚</span>MOOD JEJU 貝殼選品</div>
+            <div class="option-row"><span class="option-num">🏝️</span>The Islander 火山石擴香</div>
+            <div class="option-row"><span class="option-num">👟</span>트리플스토어 潮牌選店</div>
+            <div class="option-row"><span class="option-num">💍</span>Jejustarstore 濟州戒指</div>
+            <div class="option-row"><span class="option-num">💍</span>Hi Jeju Gift Shop（minual_jeju）</div>
+            <div class="option-row"><span class="option-num">🪴</span>디앤디파트먼트 選物傢俱伴手禮</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">12:00</span>
+            <span class="card-type type-snack">☕ 咖啡休息</span>
+          </div>
+          <div class="card-name">市區咖啡廳休息</div>
+          <div class="card-desc">補充能量，準備下午的香水體驗＋似顏繪</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">下午・體驗＋夕陽</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">13:00</span>
+            <span class="card-type type-meal">🍽️ 午餐</span>
+          </div>
+          <div class="card-name">午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>濟州庭院 鐵板燉白帶魚</strong> 🐟</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>正直豬腳菜包肉</strong> 🥬</div></div>
+            <div class="option-row"><span class="option-num">3</span><div><strong>月汀里鐵板排骨 冷麵</strong> 😍</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">14:00</span>
+            <span class="card-type type-activity">🍊 體驗</span>
+          </div>
+          <div class="card-name">Mandarin Island Jeju 香水體驗</div>
+          <div class="card-name-kr">만다린 아일랜드 · 市區</div>
+          <div class="card-desc">濟州島獨立香水品牌，海霧・蘑菇等稀有香調<br>約 KRW 30,000+/瓶｜14:00 才開門</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=14015599071264411932" target="_blank">📍 Mandarin Island 導航</a>
+        </div>
+      </div>
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">15:00</span>
+            <span class="card-type type-activity">🎨 體驗</span>
+          </div>
+          <div class="card-name">1분 도토리 캐리커쳐 似顏繪</div>
+          <div class="card-name-kr">도토리 캐리커쳐 · 市區</div>
+          <div class="card-desc">精神最好的時段！趁夕陽前去體驗🤎<br>約 KRW 15,000/人</div>
+          <a class="map-btn" href="https://maps.app.goo.gl/GE7fJ2UkgHyvDpPN9" target="_blank">📍 似顏繪 導航</a>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">16:30</span>
+            <span class="card-type type-transport">🚗 出發</span>
+          </div>
+          <div class="card-name">市區 → 涯月（約30分）</div>
+        </div>
+      </div>
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">17:00</span>
+            <span class="card-type type-spot">🌅 夕陽</span>
+          </div>
+          <div class="card-name">涯月海岸咖啡街＋夕陽</div>
+          <div class="card-name-kr">애월 해안도로 · 西北涯月</div>
+          <div class="card-desc">日落時間約 18:30-19:00，絕美夕陽！<br>先在 Haejigae Cafe 等夕陽，喝咖啡吃甜點</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=13935002671491783683" target="_blank">📍 Haejigae Cafe 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">晚餐・回市區</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">19:30</span>
+            <span class="card-type type-meal">🌙 晚餐</span>
+          </div>
+          <div class="card-name">晚餐選項（涯月或回市區）</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>Kogijang 烤黑豬肉</strong><br>特色醬料，市區 🐷</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>濟州砧板肉店 菜包肉</strong> 🥬</div></div>
+            <div class="option-row"><span class="option-num">3</span><div><strong>GalchiBada 白帶魚</strong> 🐟</div></div>
+          </div>
+          <a class="map-btn" href="https://maps.google.com/?cid=11029948969159443874" target="_blank">📍 Kogijang 導航</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DAY 5 ═══════════════ -->
+  <div class="day-content" id="day-5">
+    <div class="day-header">
+      <div class="day-header-top">
+        <div class="day-title">最終回汗蒸幕🛁<br>掃貨收尾・深夜飛台</div>
+        <div class="day-badge">6/2 一</div>
+      </div>
+      <div class="day-outfit">👗 舒適寬鬆（汗蒸幕）｜行李整理好再出門</div>
+    </div>
+
+    <div class="section-label">早上・汗蒸幕最終回</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">09:00</span>
+            <span class="card-type type-stay">🏨 退房</span>
+          </div>
+          <div class="card-name">濟州觀景台飯店 退房</div>
+          <div class="card-desc">退房時間 11:00 前｜行李放車上</div>
+        </div>
+      </div>
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">09:30</span>
+            <span class="card-type type-activity">🛁 汗蒸幕</span>
+          </div>
+          <div class="card-name">汗蒸幕 最後一次！</div>
+          <div class="card-desc">選上次喜歡的那家再去一次 🎉</div>
+          <a class="map-btn" href="https://maps.google.com/?cid=11029948969159443874" target="_blank">📍 龍頭岩汗蒸幕 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">中午・早午餐＋收尾</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">12:00</span>
+            <span class="card-type type-meal">🍽️ 早午餐</span>
+          </div>
+          <div class="card-name">早午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>Ki笑人生 雞腳（接勾）</strong> 🍗<br>一定要吃！</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>正直豬腳菜包肉</strong>（D4沒吃的話）</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">13:30</span>
+            <span class="card-type type-meal">🍽️ 午餐</span>
+          </div>
+          <div class="card-name">午餐選項</div>
+          <div class="card-options">
+            <div class="card-options-title">CHOOSE ONE</div>
+            <div class="option-row"><span class="option-num">1</span><div><strong>冷麵 😍</strong>（月汀里鐵板排骨）</div></div>
+            <div class="option-row"><span class="option-num">2</span><div><strong>會動的海鮮麵</strong> 🦞</div></div>
+            <div class="option-row"><span class="option-num">3</span><div>白帶魚（D4沒吃的話）</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">14:30</span>
+            <span class="card-type type-spot">🛍️ 最後掃貨</span>
+          </div>
+          <div class="card-name">沒買到的今天補回來！</div>
+          <div class="card-options">
+            <div class="card-options-title">CHECK LIST</div>
+            <div class="option-row"><span class="option-num">🍤</span>炸蝦（脆友推薦）</div>
+            <div class="option-row"><span class="option-num">🍮</span>布丁店（找 Otz 鞋子）</div>
+            <div class="option-row"><span class="option-num">🐱</span>韓式石屋貓咪咖啡廳</div>
+            <div class="option-row"><span class="option-num">🎀</span>Hello Kitty（D3沒去的話）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">傍晚・機場</div>
+    <div class="timeline">
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">17:00</span>
+            <span class="card-type type-transport">🚗 還車</span>
+          </div>
+          <div class="card-name">機場附近還車</div>
+          <div class="card-desc">⚠️ 記得提前加滿油再還車！</div>
+        </div>
+      </div>
+      <div class="tl-block">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">18:00</span>
+            <span class="card-type type-snack">🛒 機場採購</span>
+          </div>
+          <div class="card-name">機場退稅＋伴手禮</div>
+          <div class="card-desc">Tax Refund 退稅！機場限定：濟州橘子甜點、蜂蜜餅乾</div>
+        </div>
+      </div>
+      <div class="tl-block highlight">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-time">22:15</span>
+            <span class="card-type type-transport">✈️ 出發</span>
+          </div>
+          <div class="card-name">LJ763 起飛，回台灣！</div>
+          <div class="card-desc">CJU 22:15 → TPE 00:15+1<br>真航空 · 真航空</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end tab-itinerary -->
+
+<!-- ═══ TAB: 交通 ═══ -->
+<div class="tab-section" id="tab-transport">
+  <div class="content">
+
+    <div class="flight-card">
+      <div class="flight-label">去程 · LJ764 · 真航空</div>
+      <div class="flight-route">
+        <div>
+          <div class="flight-city">TPE</div>
+          <div class="flight-time">03:00</div>
+        </div>
+        <div class="flight-arrow">→</div>
+        <div>
+          <div class="flight-city">CJU</div>
+          <div class="flight-time">06:10</div>
+        </div>
+      </div>
+      <div class="flight-meta"><span>5/29（四）</span><span>真航空</span></div>
+    </div>
+
+    <div class="flight-card" style="background: linear-gradient(135deg, #2D4A6B, #1A2D45)">
+      <div class="flight-label">回程 · LJ763 · 真航空</div>
+      <div class="flight-route">
+        <div>
+          <div class="flight-city">CJU</div>
+          <div class="flight-time">22:15</div>
+        </div>
+        <div class="flight-arrow">→</div>
+        <div>
+          <div class="flight-city">TPE</div>
+          <div class="flight-time">00:15+1</div>
+        </div>
+      </div>
+      <div class="flight-meta"><span>6/2（一）</span><span>真航空</span></div>
+    </div>
+
+    <div class="section-label">租車資訊</div>
+    <div class="transport-card">
+      <div class="transport-route">
+        <span class="route-point">🚗 樂天租車</span>
+        <span class="route-arrow"><span class="route-line"></span></span>
+        <span class="route-point">機場取還車</span>
+      </div>
+      <div class="transport-meta">
+        <span class="meta-chip orange">5/29 取車</span>
+        <span class="meta-chip orange">6/2 還車</span>
+        <span class="meta-chip">國際駕照必備</span>
+      </div>
+      <div class="transport-note">
+        ⚠️ 韓國靠右行駛<br>
+        🚗 一般轎車 約 KRW 60,000-80,000/天<br>
+        🏎️ 敞篷車 約 KRW 120,000-150,000/天<br>
+        ⛽ 還車前記得加滿油
+      </div>
+    </div>
+
+    <div class="section-label">牛島交通</div>
+    <div class="transport-card">
+      <div class="transport-route">
+        <span class="route-point">⛴️ 城山浦港</span>
+        <span class="route-arrow"><span class="route-line"></span>渡輪</span>
+        <span class="route-point">🐄 牛島</span>
+      </div>
+      <div class="transport-meta">
+        <span class="meta-chip orange">來回 KRW 12,000/人</span>
+        <span class="meta-chip">船程約15分</span>
+        <span class="meta-chip">⚠️ 帶護照</span>
+      </div>
+      <div class="transport-note">
+        島上租電動機車：約 KRW 15,000-20,000/台<br>
+        需要國際駕照（汽機車）
+      </div>
+      <br>
+      <a class="map-btn teal" href="https://maps.google.com/?cid=14567889934598672804" target="_blank">📍 城山浦港 導航</a>
+    </div>
+
+    <div class="section-label">各日車程參考</div>
+    <div class="transport-card">
+      <div class="transport-note" style="line-height: 2">
+        D1 機場→市區：約20分<br>
+        D1 市區→閑德海灘：約50分<br>
+        D1 閑德海灘→民宿：約15分<br>
+        D2 民宿→城山港：約15分<br>
+        D3 民宿→Osulloc：約1.5小時<br>
+        D3 Hello Kitty→協才：約15分<br>
+        D3 協才→市區飯店：約40分<br>
+        D4 市區→涯月：約30分<br>
+        D4 涯月→市區：約30分<br>
+        D5 市區→機場：約15分
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB: 住宿 ═══ -->
+<div class="tab-section" id="tab-stay">
+  <div class="content">
+
+    <div class="stay-card">
+      <div class="stay-banner">
+        <div class="stay-nights">D1 – D2 · 兩夜</div>
+        <div class="stay-name">Airbnb 民宿</div>
+        <div class="stay-type">東北部 구좌읍 · Gujwa-eup</div>
+      </div>
+      <div class="stay-body">
+        <div class="stay-row">
+          <div class="stay-row-label">地址</div>
+          <div class="stay-row-value">38 Sanghado-gil, Gujwa-eup</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">評分</div>
+          <div class="stay-row-value">★ 4.95</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">房型</div>
+          <div class="stay-row-value">1臥室・1床・獨立浴室</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">入住</div>
+          <div class="stay-row-value">5/29 下午4點後</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">退房</div>
+          <div class="stay-row-value">5/31 上午11點前</div>
+        </div>
+        <div class="stay-confirmed">✅ 已確認訂房</div>
+      </div>
+    </div>
+
+    <div class="stay-card">
+      <div class="stay-banner" style="background: linear-gradient(135deg, #6B5A4A, #3D2D20)">
+        <div class="stay-nights">D3 – D4 · 兩夜</div>
+        <div class="stay-name">濟州觀景台飯店</div>
+        <div class="stay-type">濟州市區</div>
+      </div>
+      <div class="stay-body">
+        <div class="stay-row">
+          <div class="stay-row-label">位置</div>
+          <div class="stay-row-value">濟州市區（市場・購物・餐廳步行可達）</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">入住</div>
+          <div class="stay-row-value">5/31 下午4點後</div>
+        </div>
+        <div class="stay-row">
+          <div class="stay-row-label">退房</div>
+          <div class="stay-row-value">6/2 上午11點前</div>
+        </div>
+        <div class="stay-confirmed">✅ 已確認訂房</div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      💡 <strong>D3 晚到提醒：</strong>當天行程南部繞一大圈，預計 21:00 才抵達飯店，建議提前致電通知晚到，確認 Check-in 方式。
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TAB: 行李 ═══ -->
+<div class="tab-section" id="tab-packing">
+  <div class="content">
+
+    <div class="alert-box">
+      💡 點擊項目可以打勾，追蹤打包進度！
+    </div>
+
+    <div class="pack-section">
+      <div class="pack-title">📋 證件・財務</div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">護照（有效期6個月以上）</div>
+        <div class="pack-note">⚠️ 牛島必備</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">國際駕照</div>
+        <div class="pack-note">汽機車</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">台灣駕照</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">信用卡 × 2張</div>
+        <div class="pack-note">Visa/Master</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">韓元現金（各 NT$3,000）</div>
+      </div>
+    </div>
+
+    <div class="pack-section">
+      <div class="pack-title">🌞 防曬・外出</div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">防曬乳</div>
+        <div class="pack-note">海島超強UV</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">墨鏡</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">帽子</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">薄外套</div>
+        <div class="pack-note">室內冷氣強</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">泳衣</div>
+        <div class="pack-note">Beryl可下水</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">涼鞋／防水鞋</div>
+        <div class="pack-note">牛島、海邊</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">汗蒸幕換洗衣物</div>
+        <div class="pack-note">D1、D5</div>
+      </div>
+    </div>
+
+    <div class="pack-section">
+      <div class="pack-title">📱 3C・電源</div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">韓國 eSIM 或 SIM 卡</div>
+        <div class="pack-note">台灣先買好</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">轉接頭（C型插頭）</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">行動電源</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">充電線</div>
+      </div>
+    </div>
+
+    <div class="pack-section">
+      <div class="pack-title">💊 醫藥・保健</div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">旅遊平安險</div>
+        <div class="pack-note">出發前投保</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">常備藥（感冒、腸胃、暈車）</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">OK繃</div>
+      </div>
+    </div>
+
+    <div class="pack-section">
+      <div class="pack-title">📱 App 下載</div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">Naver Map（韓國導航更準）</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">Google Maps 離線地圖（濟州島）</div>
+      </div>
+      <div class="pack-item" onclick="togglePack(this)">
+        <div class="pack-check"></div>
+        <div class="pack-text">Papago 韓文翻譯</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TAB: 預算 ═══ -->
+<div class="tab-section" id="tab-budget">
+  <div class="content">
+
+    <div class="budget-total">
+      <div class="budget-total-label">整體預算概估（2人）</div>
+      <div class="budget-total-num">NT$ 26,000</div>
+      <div class="budget-total-sub">+ KRW 1,050,000（機票・住宿另計）</div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">✈️ 固定費用（2人合計）</div>
+      <div class="budget-row"><span class="budget-row-label">機票（真航空 來回）</span><span class="budget-row-val">NT$ 18,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">住宿（4夜）</span><span class="budget-row-val">NT$ 8,000</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">小計</span><span class="budget-row-val">NT$ 26,000</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📅 D1 落地・汗蒸幕（5/29）</div>
+      <div class="budget-row"><span class="budget-row-label">租車（1天）</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">汗蒸幕 ×2人</span><span class="budget-row-val">KRW 24,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">Day1 小計</span><span class="budget-row-val">KRW 184,000</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📅 D2 牛島一日遊（5/30）</div>
+      <div class="budget-row"><span class="budget-row-label">租車</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">渡輪來回 ×2人</span><span class="budget-row-val">KRW 24,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">島上電動機車</span><span class="budget-row-val">KRW 35,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">城山日出峰 ×2人</span><span class="budget-row-val">KRW 10,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲</span><span class="budget-row-val">KRW 120,000</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">Day2 小計</span><span class="budget-row-val">KRW 269,000</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📅 D3 南部探索（5/31）</div>
+      <div class="budget-row"><span class="budget-row-label">租車</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">本態博物館 ×2人</span><span class="budget-row-val">KRW 60,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">Hello Kitty ×2人</span><span class="budget-row-val">KRW 30,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲</span><span class="budget-row-val">KRW 120,000</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">Day3 小計</span><span class="budget-row-val">KRW 290,000</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📅 D4 涯月夕陽・購物（6/1）</div>
+      <div class="budget-row"><span class="budget-row-label">租車</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">似顏繪 ×2人</span><span class="budget-row-val">KRW 30,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">香水體驗</span><span class="budget-row-val">KRW 30,000+</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲</span><span class="budget-row-val">KRW 100,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">購物</span><span class="budget-row-val">依個人</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">Day4 小計</span><span class="budget-row-val">KRW 240,000+</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📅 D5 最終日・機場（6/2）</div>
+      <div class="budget-row"><span class="budget-row-label">租車（還車）</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">汗蒸幕 ×2人</span><span class="budget-row-val">KRW 24,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲</span><span class="budget-row-val">KRW 80,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">機場伴手禮</span><span class="budget-row-val">依個人</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">Day5 小計</span><span class="budget-row-val">KRW 184,000+</span></div>
+    </div>
+
+    <div class="budget-card">
+      <div class="budget-day-title">📊 韓元合計</div>
+      <div class="budget-row"><span class="budget-row-label">交通・體驗</span><span class="budget-row-val">KRW 587,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">餐飲（5天）</span><span class="budget-row-val">KRW 500,000</span></div>
+      <div class="budget-row"><span class="budget-row-label">購物</span><span class="budget-row-val">依個人</span></div>
+      <div class="budget-row total-row"><span class="budget-row-label">韓元總計</span><span class="budget-row-val">KRW 1,087,000+</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="switchTab('itinerary', this)">
+    <span class="nav-icon">🗓️</span>
+    <span class="nav-label">行程</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('transport', this)">
+    <span class="nav-icon">✈️</span>
+    <span class="nav-label">交通</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('stay', this)">
+    <span class="nav-icon">🏨</span>
+    <span class="nav-label">住宿</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('packing', this)">
+    <span class="nav-icon">🎒</span>
+    <span class="nav-label">行李</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('budget', this)">
+    <span class="nav-icon">💰</span>
+    <span class="nav-label">預算</span>
+  </button>
+</nav>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function switchDay(num, chip) {
+    document.querySelectorAll('.day-chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+    chip.classList.add('active');
+    document.getElementById('day-' + num).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function togglePack(item) {
+    item.classList.toggle('checked');
+  }
+</script>
+
+</body>
+</html>
